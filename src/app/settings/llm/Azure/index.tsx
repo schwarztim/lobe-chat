@@ -50,6 +50,13 @@ const AzureOpenAIProvider = memo(() => {
           label: t('llm.AzureOpenAI.token.title'),
           name: [LLMProviderConfigKey, providerKey, LLMProviderApiTokenKey],
         },
+	{
+ 	  children: <Input allowClear placeholder={t('llm.AzureOpenAI.endpoint.placeholder')} />,
+ 	  desc: t('llm.AzureOpenAI.endpoint.desc'),
+ 	  label: t('llm.AzureOpenAI.endpoint.title'),
+ 	  name: [LLMProviderConfigKey, providerKey, 'endpoint'],
+	},
+
         {
           children: <Input allowClear placeholder={t('llm.AzureOpenAI.endpoint.placeholder')} />,
           desc: t('llm.AzureOpenAI.endpoint.desc'),

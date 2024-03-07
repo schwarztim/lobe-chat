@@ -15,17 +15,17 @@ import { DEBUG_CHAT_COMPLETION } from '../utils/env';
 
 export class LobeAzureOpenAI implements LobeRuntimeAI {
   private _client: OpenAIClient;
+  baseURL: string;
 
-  constructor(endpoint?: string, apikey?: string, apiVersion?: string) {
-    if (!apikey || !endpoint)
+  constructor(config: { endpoint: string; apiKey: string; apiVersion: string }) {
+    const { endpoint, apiKey, apiVersion } = config;
+
+    if (!apiKey || !endpoint)
       throw AgentRuntimeError.createError(AgentRuntimeErrorType.InvalidAzureAPIKey);
 
-    this._client = new OpenAIClient(endpoint, new AzureKeyCredential(apikey), { apiVersion });
-
+    this._client = new OpenAIClient(endpoint, new AzureKeyCredential(apiKey), { apiVersion });
     this.baseURL = endpoint;
   }
-
-  baseURL: string;
 
   async chat(payload: ChatStreamPayload) {
     // ============  1. preprocess messages   ============ //
@@ -67,6 +67,7 @@ export class LobeAzureOpenAI implements LobeRuntimeAI {
         errorType,
         provider: ModelProvider.Azure,
       });
-    }
-  }
-}
+    }   
+  }     
+}  
+
